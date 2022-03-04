@@ -14,6 +14,7 @@
     <description>The parent module of other microservices module</description>
     <modules>
         <module>service-user</module>
+        <module>service-hospital</module>
     </modules>
 
     <dependencies>
