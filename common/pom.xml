@@ -15,8 +15,6 @@
     <modules>
         <module>common-util</module>
         <module>service-util</module>
-        <module>common-util</module>
-        <module>service-util</module>
     </modules>
 
     <dependencies>
@@ -47,5 +45,18 @@
             <artifactId>springfox-swagger-ui</artifactId>
         </dependency>
     </dependencies>
+
+    <!--  https://blog.csdn.net/qq_29765371/article/details/99234759  -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
