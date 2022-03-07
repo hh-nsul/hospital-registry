@@ -7,7 +7,7 @@ USE `hospital_registry_hospital`;
 
 # Table "hospital_set"
 
-CREATE TABLE `hospital_info` (
+CREATE TABLE `hospital_config` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'Serial Number',
   `hosname` varchar(100) DEFAULT NULL COMMENT 'Hospital Name',
   `hoscode` varchar(30) DEFAULT NULL COMMENT 'Hospital Code',
