@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-public class HospitalSetQueryVo {
+public class HospitalConfigQueryVo {
 
     @ApiModelProperty(value = "医院名称")
     private String hosname;
