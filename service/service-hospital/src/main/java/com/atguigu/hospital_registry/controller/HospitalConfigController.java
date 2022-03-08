@@ -32,6 +32,12 @@ public class HospitalConfigController {
         return Result.ok(hospitalConfigList);
     }
 
+    @GetMapping("/findHospitalConfig/{id}")
+    public Result findHospitalConfigById(@PathVariable Long id) {
+        HospitalConfig hospitalConfig = hospitalConfigService.getById(id);
+        return Result.ok(hospitalConfig);
+    }
+
     @PostMapping("/findByPage/{currPageNum}/{recordsNum}")
     public Result findHospitalConfigWithPagination(@PathVariable Long currPageNum,
                                                    @PathVariable Long recordsNum,
@@ -61,6 +67,36 @@ public class HospitalConfigController {
 
         boolean saved = hospitalConfigService.save(hospitalConfig);
         return saved ? Result.ok() : Result.fail();
+    }
+
+    @PostMapping("/updateHospitalConfig")
+    public Result updateHospitalConfig(@RequestBody HospitalConfig hospitalConfig) {
+        boolean updated = hospitalConfigService.updateById(hospitalConfig);
+        return updated ? Result.ok() : Result.fail();
+    }
+
+    @PutMapping("/lockHospitalConfig/{id}/{status}")
+    public Result lockHospitalConfig(@PathVariable Long id,
+                                     @PathVariable Integer status) {
+        HospitalConfig hospitalConfig = hospitalConfigService.getById(id);
+        hospitalConfig.setStatus(status);
+        boolean updated = hospitalConfigService.updateById(hospitalConfig);
+        return updated ? Result.ok() : Result.fail();
+    }
+
+    @PutMapping("/sendHospitalConfigKey/{id}")
+    public Result sendHospitalConfigKey(@PathVariable Long id) {
+        HospitalConfig hospitalConfig = hospitalConfigService.getById(id);
+        String signKey = hospitalConfig.getSignKey();
+        String hoscode = hospitalConfig.getHoscode();
+        // TODO: Send a message
+        return Result.ok();
+    }
+
+    @DeleteMapping("/removeBatch")
+    public Result removeHospitalConfigBatch(@RequestBody List<Long> idList) {
+        boolean removed = hospitalConfigService.removeByIds(idList);
+        return removed ? Result.ok() : Result.fail();
     }
 
     @DeleteMapping("/{id}")
