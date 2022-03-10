@@ -1,6 +1,5 @@
 package com.atguigu.hospital_registry.controller;
 
-import com.atguigu.hospital_registry.common.exception.HospitalRegistryException;
 import com.atguigu.hospital_registry.common.result.Result;
 import com.atguigu.hospital_registry.common.util.MD5;
 import com.atguigu.hospital_registry.model.hosp.HospitalConfig;
@@ -13,11 +12,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 @RestController
 @RequestMapping("/admin/hospital/hospitalConfig")
+@CrossOrigin
 public class HospitalConfigController {
 
     private static final ThreadLocalRandom RANDOM = ThreadLocalRandom.current();
@@ -93,7 +92,7 @@ public class HospitalConfigController {
         return Result.ok();
     }
 
-    @DeleteMapping("/removeBatch")
+    @DeleteMapping("/deleteBatch")
     public Result removeHospitalConfigBatch(@RequestBody List<Long> idList) {
         boolean removed = hospitalConfigService.removeByIds(idList);
         return removed ? Result.ok() : Result.fail();
