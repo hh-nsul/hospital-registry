@@ -24,7 +24,6 @@ import Layout from '../views/layout/Layout'
 export const constantRouterMap = [
   { path: '/login', component: () => import('@/views/login/index'), hidden: true },
   { path: '/404', component: () => import('@/views/404'), hidden: true },
-
   {
     path: '/',
     component: Layout,
@@ -48,13 +47,20 @@ export const constantRouterMap = [
         path: 'list',
         name: 'Config List',
         component: () => import('@/views/hospital-config/list'),
-        meta: { title: 'Config List', icon: 'table' }
+        meta: { title: 'List', icon: 'table' }
       },
       {
         path: 'add',
         name: 'Config Add',
         component: () => import('@/views/hospital-config/add'),
-        meta: { title: 'Config Add', icon: 'tree' }
+        meta: { title: 'Add', icon: 'tree' }
+      },
+      {
+        path: 'edit/:id',
+        name: 'Config Edit',
+        component: () => import('@/views/hospital-config/add'),
+        meta: { title: 'Edit', nocache: 'true' },
+        hidden: true
       }
     ]
   },

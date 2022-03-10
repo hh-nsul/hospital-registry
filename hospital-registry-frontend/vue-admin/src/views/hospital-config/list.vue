@@ -8,7 +8,7 @@
     <el-form :inline="true" class="demo-form-inline">
         <el-form-item>
             <!-- v-model is bidirectional binding, so searchObj of 
-            hospitalConfig.getHospitalConfigList() method can aquire the values in real time-->
+            hospitalConfigApi.getHospitalConfigList() method can aquire the values in real time-->
             <el-input v-model="searchObj.hosname" placeholder="Hospital Name"/>
         </el-form-item>
         <el-form-item>
@@ -38,12 +38,19 @@
 
         <el-table-column label="Operation" width="280" align="center">
             <template slot-scope="scope">
-                <el-button type="danger" size="mini" 
-                    icon="el-icon-delete" @click="removeItemById(scope.row.id)">Delete</el-button>
+
+                <router-link :to="'/hospitalConfig/edit/' + scope.row.id">
+                    <el-button type="primary" size="mini" icon="el-icon-edit"></el-button>
+                </router-link>
+
                 <el-button v-if="scope.row.status == 1" type="danger" size="mini" 
                     icon="el-icon-lock" @click="lockHospitalConfig(scope.row.id, 0)">Lock</el-button>
                 <el-button v-if="scope.row.status == 0" type="primary" size="mini" 
                     icon="el-icon-unlock" @click="lockHospitalConfig(scope.row.id, 1)">Unlock</el-button>
+                
+                <el-button type="danger" size="mini" 
+                    icon="el-icon-delete" @click="removeItemById(scope.row.id)">Delete</el-button>
+                
             </template>
         </el-table-column>
     </el-table>
@@ -63,7 +70,7 @@
 <script>
 
 // Import the .js file where the interface defined
-import hospitalConfig from '@/api/hospital-config'
+import hospitalConfigApi from '@/api/hospital-config'
 
 export default {
 
@@ -88,7 +95,7 @@ export default {
         getList(page = 1) {
             this.currPageNum = page
             // searchObj is aquired in <el-form-item>, due to v-model is bidirectional binding
-            hospitalConfig.getHospitalConfigList(this.currPageNum, this.recordsNum, this.searchObj)
+            hospitalConfigApi.getHospitalConfigList(this.currPageNum, this.recordsNum, this.searchObj)
               .then((response) => {
                   this.list = response.data.records
                   this.total = response.data.total
@@ -106,7 +113,7 @@ export default {
                 type: 'warning'
             }).then(() => {
 
-                hospitalConfig.deleteHospitalConfig(id)
+                hospitalConfigApi.deleteHospitalConfig(id)
                     .then(response => {
 
                         this.$message({
@@ -148,7 +155,7 @@ export default {
 
                 console.log("idList: " + idList)
 
-                hospitalConfig.deleteHospitalConfigBatch(idList)
+                hospitalConfigApi.deleteHospitalConfigBatch(idList)
                     .then(response => {
 
                         this.$message({
@@ -163,9 +170,9 @@ export default {
         },
 
         lockHospitalConfig(id, status) {
-            hospitalConfig.lockHospitalConfig(id, status)
+            hospitalConfigApi.lockHospitalConfig(id, status)
                 .then(response => {
-                        // Refresh page
+                    // Refresh page
                     this.getList(1)
                 })
         }

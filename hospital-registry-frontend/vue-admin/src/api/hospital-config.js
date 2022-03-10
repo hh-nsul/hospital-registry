@@ -32,5 +32,28 @@ export default {
             url: `/admin/hospital/hospitalConfig/lockHospitalConfig/${id}/${status}`,
             method: 'put'
         })
+    },
+
+    saveHospitalConfig(hospitalConfig) {
+        return request ({
+            url: `/admin/hospital/hospitalConfig/createHospitalConfig`,
+            method: 'post',
+            data: hospitalConfig
+        })
+    },
+
+    updateHospitalConfig(hospitalConfig) {
+        return request ({
+            url: `/admin/hospital/hospitalConfig/updateHospitalConfig`,
+            method: 'post',
+            data: hospitalConfig
+        })
+    },
+
+    getHospitalConfig(id) {
+        return request ({
+            url: `/admin/hospital/hospitalConfig/findHospitalConfig/${id}`,
+            method: 'get'
+        })
     }
 }
