@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 @RestController
-@RequestMapping("/admin/hospital/hospitalConfig")
+@RequestMapping("/admin/hospital")
 @CrossOrigin
 public class HospitalConfigController {
 
@@ -25,20 +25,20 @@ public class HospitalConfigController {
     private HospitalConfigService hospitalConfigService;
 
     // http://localhost:8201/admin/hospital/hospitalConfig/findAll
-    @GetMapping("/findAll")
-    public Result findAllHospitalConfig() {
+    @GetMapping("/hospital-configs")
+    public Result getAllHospitalConfig() {
         List<HospitalConfig> hospitalConfigList = hospitalConfigService.list();
         return Result.ok(hospitalConfigList);
     }
 
-    @GetMapping("/findHospitalConfig/{id}")
-    public Result findHospitalConfigById(@PathVariable Long id) {
+    @GetMapping("/hospital-config/{id}")
+    public Result getHospitalConfigById(@PathVariable Long id) {
         HospitalConfig hospitalConfig = hospitalConfigService.getById(id);
         return Result.ok(hospitalConfig);
     }
 
-    @PostMapping("/findByPage/{currPageNum}/{recordsNum}")
-    public Result findHospitalConfigWithPagination(@PathVariable Long currPageNum,
+    @PostMapping("/hospital-config/page/{currPageNum}/{recordsNum}")
+    public Result getHospitalConfigWithPagination(@PathVariable Long currPageNum,
                                                    @PathVariable Long recordsNum,
                                                    @RequestBody(required = false) HospitalConfigQueryVo hospitalConfigQueryVo) {
         Page<HospitalConfig> page = new Page<>(currPageNum, recordsNum);
@@ -57,7 +57,7 @@ public class HospitalConfigController {
         return Result.ok(pageQuery);
     }
 
-    @PostMapping("/createHospitalConfig")
+    @PostMapping("/hospital-config")
     public Result createHospitalConfig(@RequestBody HospitalConfig hospitalConfig) {
         hospitalConfig.setStatus(1);
         StringBuilder stringBuilder = new StringBuilder();
@@ -68,13 +68,13 @@ public class HospitalConfigController {
         return saved ? Result.ok() : Result.fail();
     }
 
-    @PostMapping("/updateHospitalConfig")
+    @PutMapping("/hospital-config")
     public Result updateHospitalConfig(@RequestBody HospitalConfig hospitalConfig) {
         boolean updated = hospitalConfigService.updateById(hospitalConfig);
         return updated ? Result.ok() : Result.fail();
     }
 
-    @PutMapping("/lockHospitalConfig/{id}/{status}")
+    @PutMapping("/hospital-config/{id}/{status}")
     public Result lockHospitalConfig(@PathVariable Long id,
                                      @PathVariable Integer status) {
         HospitalConfig hospitalConfig = hospitalConfigService.getById(id);
@@ -83,23 +83,23 @@ public class HospitalConfigController {
         return updated ? Result.ok() : Result.fail();
     }
 
-    @PutMapping("/sendHospitalConfigKey/{id}")
-    public Result sendHospitalConfigKey(@PathVariable Long id) {
-        HospitalConfig hospitalConfig = hospitalConfigService.getById(id);
-        String signKey = hospitalConfig.getSignKey();
-        String hoscode = hospitalConfig.getHoscode();
-        // TODO: Send a message
-        return Result.ok();
-    }
+//    @PutMapping("/hospital-config/{id}")
+//    public Result sendHospitalConfigKey(@PathVariable Long id) {
+//        HospitalConfig hospitalConfig = hospitalConfigService.getById(id);
+//        String signKey = hospitalConfig.getSignKey();
+//        String hoscode = hospitalConfig.getHoscode();
+//        // TODO: Send a message
+//        return Result.ok();
+//    }
 
-    @DeleteMapping("/deleteBatch")
-    public Result removeHospitalConfigBatch(@RequestBody List<Long> idList) {
+    @DeleteMapping("/hospital-configs")
+    public Result deleteHospitalConfigBatch(@RequestBody List<Long> idList) {
         boolean removed = hospitalConfigService.removeByIds(idList);
         return removed ? Result.ok() : Result.fail();
     }
 
-    @DeleteMapping("/{id}")
-    public Result removeHospitalConfig(@PathVariable Long id) {
+    @DeleteMapping("/hospital-config/{id}")
+    public Result deleteHospitalConfig(@PathVariable Long id) {
         boolean removed = hospitalConfigService.removeById(id);
         return removed ? Result.ok() : Result.fail();
     }

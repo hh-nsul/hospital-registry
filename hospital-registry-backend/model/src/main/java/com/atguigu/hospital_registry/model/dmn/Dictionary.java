@@ -1,4 +1,4 @@
-package com.atguigu.hospital_registry.model.cmn;
+package com.atguigu.hospital_registry.model.dmn;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -19,8 +19,8 @@ import java.util.Map;
  */
 @Data
 @ApiModel(description = "数据字典")
-@TableName("dict")
-public class Dict {
+@TableName("data_dictionary")
+public class Dictionary {
 
     private static final long serialVersionUID = 1L;
 

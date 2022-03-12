@@ -15,6 +15,7 @@
     <modules>
         <module>service-user</module>
         <module>service-hospital</module>
+        <module>service-dmn</module>
     </modules>
 
     <dependencies>

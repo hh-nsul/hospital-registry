@@ -66,6 +66,29 @@ export const constantRouterMap = [
   },
 
   {
+    path: '/dmn',
+    component: Layout,
+    redirect: '/dmn/list',
+    name: 'Data Management',
+    alwaysShow: true,
+    meta: { title: 'Data Management', icon: 'example' },
+    children: [
+      {
+        path: 'list',
+        name: 'Data Dictionary',
+        component: () => import('@/views/dictionary/list'),
+        meta: { title: 'Data Dictionary', icon: 'table' }
+      }
+    ]
+  },
+
+
+
+
+
+
+
+  {
     path: '/example',
     component: Layout,
     redirect: '/example/table',
