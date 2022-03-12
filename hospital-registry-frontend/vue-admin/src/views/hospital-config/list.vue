@@ -2,7 +2,6 @@
 /* eslint-disable no-unused-vars */
 <template>
     <div class="app-container">
-        Config List
 
     <!-- inline indicates that these el-form-items are placed in the same row -->
     <el-form :inline="true" class="demo-form-inline">

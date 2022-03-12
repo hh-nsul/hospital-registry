@@ -1,6 +1,5 @@
 <template>
     <div class="app-container">
-        Config Add
 
         <el-form label-width="120px">
           <el-form-item label="Hospital Name">
@@ -43,6 +42,8 @@ export default {
         if (this.$route.params && this.$route.params.id) {
             const id = this.$route.params.id
             this.getHosConfig(id)
+        } else {
+            this.hospitalConfig = {}
         }
     }, 
 
