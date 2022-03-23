@@ -1,5 +1,15 @@
 <template>
     <div class="app-container">
+        <div class="el-toolbar">
+            <div class="el-toolbar-body" style="justify-content: flex-start;">
+                <!-- Open a new tab to download  -->
+                <a href="http://localhost:8202/admin/dmn/dictionary/data-all-export" target="_blank">
+                    <el-button type="text"><i class="fa fa-plus"/>Export</el-button>
+                </a>
+                <el-button type="text" @click="importDictionaryData"><i class="fa fa-plus"/>Import...</el-button>
+                
+            </div>
+        </div>
         <el-table
         :data="list"
         style="width: 100%"
@@ -30,6 +40,26 @@
             </template>
             </el-table-column>
         </el-table>
+
+        <el-dialog title="Import" :visible.sync="dialogImportVisible" width="480px">
+            <el-form label-position="right" label-width="170px">
+
+                <el-form-item label="File">
+                    <el-upload
+                    :multiple="false"
+                    :on-success="onUploadSuccess"
+                    :action="'http://localhost:8202/admin/dmn/dictionary/data-all-import'"
+                    class="upload-demo">
+                    <el-button size="small" type="primary">Click to upload</el-button>
+                    <div slot="tip" class="el-upload__tip">Only .xls file allowed, no bigger than 500kb</div>
+                    </el-upload>
+                </el-form-item>
+
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogImportVisible = false">Cancel</el-button>
+        </div>
+        </el-dialog>
     </div>
 </template>
 
@@ -40,6 +70,7 @@ export default {
     
     data() {
         return {
+            dialogImportVisible: false,
             list: []
         }
     },
@@ -51,6 +82,28 @@ export default {
     },
 
     methods: {
+
+        importDictionaryData() {
+            // Prompt a dialog
+            this.dialogImportVisible = true
+        },
+
+        onUploadSuccess() {
+            this.dialogImportVisible = false
+
+            this.getDictList(1)
+        },
+
+        getDictList(id) {
+            dictionary.getDictionaryList(id)
+                .then(response => {
+                    this.list = response.data
+                })
+        },
+
+        exportDictionaryData() {
+            window.location.href = "http://localhost:8202/admin/dmn/dictionary/data-all-export"
+        },
 
         getDictList(id) {
             dictionary.getDictionaryList(id)
