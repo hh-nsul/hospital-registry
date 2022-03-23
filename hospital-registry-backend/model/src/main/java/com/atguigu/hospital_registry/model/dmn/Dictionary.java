@@ -45,6 +45,7 @@ public class Dictionary {
     @TableField(exist = false)
     private Map<String,Object> param = new HashMap<>();
 
+
     @ApiModelProperty(value = "Superior ID")
     @TableField("parent_id")
     private Long parentId;
