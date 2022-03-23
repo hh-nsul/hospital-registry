@@ -39,8 +39,8 @@ public class HospitalConfigController {
 
     @PostMapping("/hospital-config/page/{currPageNum}/{recordsNum}")
     public Result getHospitalConfigWithPagination(@PathVariable Long currPageNum,
-                                                   @PathVariable Long recordsNum,
-                                                   @RequestBody(required = false) HospitalConfigQueryVo hospitalConfigQueryVo) {
+                                                  @PathVariable Long recordsNum,
+                                                  @RequestBody(required = false) HospitalConfigQueryVo hospitalConfigQueryVo) {
         Page<HospitalConfig> page = new Page<>(currPageNum, recordsNum);
 
         QueryWrapper<HospitalConfig> queryWrapper = new QueryWrapper<>();

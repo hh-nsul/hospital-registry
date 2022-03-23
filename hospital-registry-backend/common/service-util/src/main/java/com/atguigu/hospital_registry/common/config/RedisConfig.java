@@ -35,7 +35,6 @@ public class RedisConfig {
                 StringBuilder builder = new StringBuilder();
                 builder.append(o.getClass().getName()).append(method.getName());
                 for (Object obj : objects) {
-                    System.out.println("obj: " + obj);
                     builder.append(obj.toString());
                 }
 
@@ -78,14 +77,14 @@ public class RedisConfig {
 
         // 配置序列化（解决乱码的问题）,过期时间600秒
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
-                                                                .entryTtl(Duration.ofSeconds(600))
-                                                                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(redisSerializer))
-                                                                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer))
-                                                                .disableCachingNullValues();
+                .entryTtl(Duration.ofSeconds(600))
+                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(redisSerializer))
+                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer))
+                .disableCachingNullValues();
 
         RedisCacheManager cacheManager = RedisCacheManager.builder(factory)
-                                                          .cacheDefaults(config)
-                                                          .build();
+                .cacheDefaults(config)
+                .build();
         return cacheManager;
     }
 }

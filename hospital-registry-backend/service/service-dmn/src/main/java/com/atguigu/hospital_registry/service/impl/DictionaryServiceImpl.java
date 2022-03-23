@@ -13,6 +13,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
@@ -46,18 +47,18 @@ public class DictionaryServiceImpl extends ServiceImpl<DictMapper, Dictionary> i
         List<Dictionary> dictionaryList = baseMapper.selectList(null);
 
         List<DictionaryExcelVo> dictionaryExcelVoList = dictionaryList.stream()
-                                                          .map(dictionary -> {
-                                                              DictionaryExcelVo dictionaryExcelVo = new DictionaryExcelVo();
-                                                              BeanUtils.copyProperties(dictionary, dictionaryExcelVo);
+                .map(dictionary -> {
+                    DictionaryExcelVo dictionaryExcelVo = new DictionaryExcelVo();
+                    BeanUtils.copyProperties(dictionary, dictionaryExcelVo);
 
-                                                               return dictionaryExcelVo;
-                                                          })
-                                                          .collect(Collectors.toList());
+                    return dictionaryExcelVo;
+                })
+                .collect(Collectors.toList());
 
         try {
             EasyExcel.write(response.getOutputStream(), DictionaryExcelVo.class)
-                     .sheet("Dictionary")
-                     .doWrite(dictionaryExcelVoList);
+                    .sheet("Dictionary")
+                    .doWrite(dictionaryExcelVoList);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -68,10 +69,10 @@ public class DictionaryServiceImpl extends ServiceImpl<DictMapper, Dictionary> i
     public void importDictData(MultipartFile multipartFile) {
         try {
             EasyExcel.read(multipartFile.getInputStream(),
-                           DictionaryExcelVo.class,
-                           new DictionaryListener(baseMapper))
-                     .sheet()
-                     .doRead();
+                    DictionaryExcelVo.class,
+                    new DictionaryListener(baseMapper))
+                    .sheet()
+                    .doRead();
         } catch (IOException e) {
             e.printStackTrace();
         }

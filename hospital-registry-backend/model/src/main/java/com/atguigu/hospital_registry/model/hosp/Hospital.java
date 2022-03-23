@@ -19,50 +19,50 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @ApiModel(description = "Hospital")
 @Document("Hospital")
 public class Hospital extends BaseMongoEntity {
-	
-	private static final long serialVersionUID = 1L;
-	
-	@ApiModelProperty(value = "Hospital Code")
-	@Indexed(unique = true) //unique index
-	private String hoscode;
 
-	@ApiModelProperty(value = "Hospital Name")
-	@Indexed //ordinary index
-	private String hosname;
+    private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "Hospital Type")
-	private String hostype;
+    @ApiModelProperty(value = "Hospital Code")
+    @Indexed(unique = true) //unique index
+    private String hoscode;
 
-	@ApiModelProperty(value = "Province Code")
-	private String provinceCode;
+    @ApiModelProperty(value = "Hospital Name")
+    @Indexed //ordinary index
+    private String hosname;
 
-	@ApiModelProperty(value = "City Code")
-	private String cityCode;
+    @ApiModelProperty(value = "Hospital Type")
+    private String hostype;
 
-	@ApiModelProperty(value = "District Code")
-	private String districtCode;
+    @ApiModelProperty(value = "Province Code")
+    private String provinceCode;
 
-	@ApiModelProperty(value = "Address")
-	private String address;
+    @ApiModelProperty(value = "City Code")
+    private String cityCode;
 
-	@ApiModelProperty(value = "Hospital Logo")
-	private String logoData;
+    @ApiModelProperty(value = "District Code")
+    private String districtCode;
 
-	@ApiModelProperty(value = "Hospital Intro")
-	private String intro;
+    @ApiModelProperty(value = "Address")
+    private String address;
 
-	@ApiModelProperty(value = "Route")
-	private String route;
+    @ApiModelProperty(value = "Hospital Logo")
+    private String logoData;
 
-	@ApiModelProperty(value = "Status 0: Offline 1: Online")
-	private Integer status;
+    @ApiModelProperty(value = "Hospital Intro")
+    private String intro;
 
-	@ApiModelProperty(value = "Booking Rule")
-	private BookingRule bookingRule;
+    @ApiModelProperty(value = "Route")
+    private String route;
 
-	public void setBookingRule(String bookingRule) {
-		this.bookingRule = JSONObject.parseObject(bookingRule, BookingRule.class);
-	}
+    @ApiModelProperty(value = "Status 0: Offline 1: Online")
+    private Integer status;
+
+    @ApiModelProperty(value = "Booking Rule")
+    private BookingRule bookingRule;
+
+    public void setBookingRule(String bookingRule) {
+        this.bookingRule = JSONObject.parseObject(bookingRule, BookingRule.class);
+    }
 
 }
 

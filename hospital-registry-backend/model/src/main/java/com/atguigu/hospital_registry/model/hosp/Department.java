@@ -18,28 +18,28 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @ApiModel(description = "Department")
 @Document("Department")
 public class Department extends BaseMongoEntity {
-	
-	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "Hospital Code")
-	@Indexed //ordinary index
-	private String hoscode;
+    private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "Department Code")
-	@Indexed(unique = true) //唯一索引
-	private String depcode;
+    @ApiModelProperty(value = "Hospital Code")
+    @Indexed //ordinary index
+    private String hoscode;
 
-	@ApiModelProperty(value = "Department Name")
-	private String depname;
+    @ApiModelProperty(value = "Department Code")
+    @Indexed(unique = true) //唯一索引
+    private String depcode;
 
-	@ApiModelProperty(value = "Department Description")
-	private String intro;
+    @ApiModelProperty(value = "Department Name")
+    private String depname;
 
-	@ApiModelProperty(value = "Large Department Code")
-	private String bigcode;
+    @ApiModelProperty(value = "Department Description")
+    private String intro;
 
-	@ApiModelProperty(value = "Large Department Name")
-	private String bigname;
+    @ApiModelProperty(value = "Large Department Code")
+    private String bigcode;
+
+    @ApiModelProperty(value = "Large Department Name")
+    private String bigname;
 
 }
 

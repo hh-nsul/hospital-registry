@@ -43,7 +43,7 @@ public class Dictionary {
 
     @ApiModelProperty(value = "Other Parameters")
     @TableField(exist = false)
-    private Map<String,Object> param = new HashMap<>();
+    private Map<String, Object> param = new HashMap<>();
 
 
     @ApiModelProperty(value = "Superior ID")

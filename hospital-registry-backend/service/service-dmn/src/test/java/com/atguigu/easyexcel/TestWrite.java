@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * https://stackoverflow.com/questions/48495043/failed-to-execute-goal-org-codehaus-mojoexec-maven-plugin1-6-0java
  * https://www.freesion.com/article/46021009132/
  */
@@ -24,7 +23,7 @@ public class TestWrite {
         String filePath = "D:\\excel\\01.xlsx";
 
         EasyExcel.write(filePath, ExcelUser.class)
-                 .sheet("User Info")
-                 .doWrite(userList);
+                .sheet("User Info")
+                .doWrite(userList);
     }
 }

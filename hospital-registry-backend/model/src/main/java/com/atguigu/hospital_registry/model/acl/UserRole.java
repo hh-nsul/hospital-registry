@@ -19,16 +19,16 @@ import lombok.Data;
 @ApiModel(description = "User Role")
 @TableName("acl_user_role")
 public class UserRole extends BaseEntity {
-	
-	private static final long serialVersionUID = 1L;
-	
-	@ApiModelProperty(value = "Role ID")
-	@TableField("role_id")
-	private Long roleId;
 
-	@ApiModelProperty(value = "User ID")
-	@TableField("user_id")
-	private Long userId;
+    private static final long serialVersionUID = 1L;
+
+    @ApiModelProperty(value = "Role ID")
+    @TableField("role_id")
+    private Long roleId;
+
+    @ApiModelProperty(value = "User ID")
+    @TableField("user_id")
+    private Long userId;
 
 }
 
