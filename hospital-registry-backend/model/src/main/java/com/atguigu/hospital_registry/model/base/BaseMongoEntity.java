@@ -6,7 +6,7 @@ import lombok.Data;
 import org.springframework.data.annotation.Transient;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,10 +18,10 @@ public class BaseMongoEntity implements Serializable {
     private String id;
 
     @ApiModelProperty(value = "Creation Time")
-    private Date createTime;
+    private LocalDateTime createTime;
 
     @ApiModelProperty(value = "Update Time")
-    private Date updateTime;
+    private LocalDateTime updateTime;
 
     @ApiModelProperty(value = "Logical Deletion(1:Deleted，0:Not Deleted)")
     private Integer isDeleted;

@@ -43,11 +43,11 @@ public class HospitalRegistryException extends RuntimeException {
 
         StringBuilder builder = new StringBuilder();
         builder.append("Hospital Registry Exception {")
-                .append("code = ")
-                .append(code)
-                .append(", message = ")
-                .append(this.getMessage())
-                .append('}');
+               .append("code = ")
+               .append(code)
+               .append(", message = ")
+               .append(this.getMessage())
+               .append('}');
 
         return builder.toString();
     }

@@ -1,7 +1,7 @@
 /*
  *  下拉列表几级联动插件
  *	made by owenhong 2013-08-08
- *	作者：qy 2014-07-25
+ *	作者：zhangshuaiyin 2014-07-25
  */
 (function($){
 	$.fn.select=function(options){
@@ -10,23 +10,23 @@
 			value:"1|1066",                                                     //下拉列表联动value
 			path:"http://localhost:9000/dict/parId/"       //下拉列表联动数据获取
 		};
-	
+
 		var options=$.extend(defaults,options);
-		
+
 		var keys = options.key.split("|");
 		var values = options.value.split("|");
 		var paths = options.path.split("|");
-		
+
 		var len = keys.length;
 		var len_path = paths.length + 1;
-		
+
 		$.each(keys,function(i,item){
 			if(i < len-1) {
 				var curr_path = paths[0];
 				if(len_path == len) {
 					curr_path = paths[i];
 				}
-				
+
 				if(values[i] != '' && values[i+1] != '') {
 					selectTwo(keys[i], keys[i+1], curr_path, values[i], values[i+1]);
 				}
@@ -34,9 +34,9 @@
 					var one_id = $(this).attr("id");
 					var two_id = getNextKey(one_id);
 					var curr_path_ = getCurrPath(one_id);
-					
+
 					selectTwo(one_id, two_id, curr_path_, '', '');
-					
+
 					var k = len;
 					$.each(keys,function(j,item){
 						if(item == two_id) {
@@ -50,7 +50,7 @@
 				});
 			}
 		});
-		
+
 		function getNextKey(key) {
 			var next = "";
 			$.each(keys,function(i,item){
@@ -60,7 +60,7 @@
 			});
 			return next;
 		};
-		
+
 		function getCurrPath(key) {
 			var next = "";
 			if(len_path == len) {
@@ -74,7 +74,7 @@
 			}
 			return next;
 		};
-		
+
 		function selectTwo(one_id, two_id, path, one_value, two_value) {
 			if(one_value == '') {
 				one_value = $("#"+one_id).val();
