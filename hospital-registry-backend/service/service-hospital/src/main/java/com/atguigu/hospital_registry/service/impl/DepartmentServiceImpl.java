@@ -2,9 +2,11 @@ package com.atguigu.hospital_registry.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.atguigu.hospital_registry.model.hosp.Department;
-import com.atguigu.hospital_registry.model.hosp.Hospital;
 import com.atguigu.hospital_registry.repostitory.DepartmentRepository;
 import com.atguigu.hospital_registry.service.DepartmentService;
+import com.atguigu.hospital_registry.vo.hosp.DepartmentQueryVo;
+import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -33,5 +35,32 @@ public class DepartmentServiceImpl implements DepartmentService {
         }
         department.setIsDeleted(0);
         departmentRepository.save(department);
+    }
+
+    @Override
+    public Page<Department> findPageDepartment(int page, int limit, DepartmentQueryVo departmentQueryVo) {
+
+        // The first page starts at index 0
+        Pageable pageable = PageRequest.of(page - 1, limit);
+
+        ExampleMatcher exampleMatcher = ExampleMatcher.matching()
+                                                      .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING)
+                                                      .withIgnoreCase(true);
+
+        Department department = new Department();
+        BeanUtils.copyProperties(departmentQueryVo, department);
+
+        Example<Department> example = Example.of(department, exampleMatcher);
+
+        return departmentRepository.findAll(example, pageable);
+    }
+
+    @Override
+    public void remove(String hoscode, String depcode) {
+
+        Optional<Department> optionalDepartment = Optional.ofNullable(departmentRepository.getDepartmentByHoscodeAndDepcode(hoscode, depcode));
+
+        optionalDepartment.ifPresent(department -> departmentRepository.deleteById(department.getId()));
+
     }
 }
