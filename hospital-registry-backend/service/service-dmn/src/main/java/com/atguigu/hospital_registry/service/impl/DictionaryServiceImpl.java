@@ -12,6 +12,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -76,6 +77,32 @@ public class DictionaryServiceImpl extends ServiceImpl<DictMapper, Dictionary> i
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public String getDictionaryName(String dictCode, String value) {
+
+        if (StringUtils.isEmpty(dictCode)) {
+            QueryWrapper<Dictionary> dictQueryWrapper = new QueryWrapper<>();
+            dictQueryWrapper.eq("value", value);
+            Dictionary record = baseMapper.selectOne(dictQueryWrapper);
+            return record.getName();
+        } else {
+            Dictionary dictionary = this.getDictionaryByDictCode(dictCode);
+            Long parentId = dictionary.getId();
+            Dictionary subDictionary = baseMapper.selectOne(new QueryWrapper<Dictionary>()
+                                                            .eq("parent_id", parentId)
+                                                            .eq("value", value));
+
+            return subDictionary.getName();
+        }
+    }
+
+    private Dictionary getDictionaryByDictCode(String dictCode) {
+        QueryWrapper<Dictionary> dictQueryWrapper = new QueryWrapper<>();
+        dictQueryWrapper.eq("dict_code", dictCode);
+        Dictionary dictionary = baseMapper.selectOne(dictQueryWrapper);
+        return dictionary;
     }
 
     private boolean hasChildren(Long parent_id) {

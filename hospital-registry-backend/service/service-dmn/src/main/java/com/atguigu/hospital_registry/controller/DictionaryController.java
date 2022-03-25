@@ -41,4 +41,18 @@ public class DictionaryController {
     public void exportDictData(HttpServletResponse response) {
         dictionaryService.exportDictData(response);
     }
+
+    @GetMapping("/dict-name/{dictCode}/{value}")
+    public String getName(@PathVariable String dictCode,
+                          @PathVariable String value) {
+
+        return dictionaryService.getDictionaryName(dictCode, value);
+    }
+
+    @GetMapping("/dict-name/{value}")
+    public String getName(@PathVariable String value) {
+
+        return dictionaryService.getDictionaryName("", value);
+    }
+
 }

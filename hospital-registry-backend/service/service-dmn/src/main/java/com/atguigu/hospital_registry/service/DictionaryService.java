@@ -14,4 +14,6 @@ public interface DictionaryService extends IService<Dictionary> {
     void exportDictData(HttpServletResponse response);
 
     void importDictData(MultipartFile multipartFile);
+
+    String getDictionaryName(String dictCode, String value);
 }

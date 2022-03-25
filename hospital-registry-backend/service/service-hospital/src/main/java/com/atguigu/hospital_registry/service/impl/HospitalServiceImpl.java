@@ -1,13 +1,18 @@
 package com.atguigu.hospital_registry.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.atguigu.hospital_registry.dmn.client.DictionaryFeignClient;
 import com.atguigu.hospital_registry.model.hosp.Hospital;
 import com.atguigu.hospital_registry.repostitory.HospitalRepository;
 import com.atguigu.hospital_registry.service.HospitalService;
+import com.atguigu.hospital_registry.vo.hosp.HospitalQueryVo;
+import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -16,6 +21,9 @@ public class HospitalServiceImpl implements HospitalService {
 
     @Resource
     private HospitalRepository hospitalRepository;
+
+    @Resource
+    private DictionaryFeignClient dictionaryFeignClient;
 
     @Override
     public void save(Map<String, Object> paramMap) {
@@ -40,5 +48,38 @@ public class HospitalServiceImpl implements HospitalService {
     @Override
     public Hospital getByHoscode(String hoscode) {
         return hospitalRepository.getHospitalByHoscode(hoscode);
+    }
+
+    @Override
+    public Page<Hospital> selectHospitalByPage(Integer page, Integer limit, HospitalQueryVo hospitalQueryVo) {
+
+        Pageable pageable = PageRequest.of(page - 1, limit);
+
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                                               .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING)
+                                               .withIgnoreCase(true);
+
+        Hospital hospital = new Hospital();
+        BeanUtils.copyProperties(hospitalQueryVo, hospital);
+
+        Example<Hospital> example = Example.of(hospital, matcher);
+
+        Page<Hospital> pages =  hospitalRepository.findAll(example, pageable);
+        List<Hospital> hospitalList = pages.getContent();
+        hospitalList.stream().forEach(item -> this.setHospitalType(item));
+
+        return pages;
+    }
+
+    private Hospital setHospitalType(Hospital hospital) {
+        String hospitalTypeName = dictionaryFeignClient.getName("Hostype", hospital.getHostype());
+        String provinceName = dictionaryFeignClient.getName(hospital.getProvinceCode());
+        String cityName = dictionaryFeignClient.getName(hospital.getCityCode());
+        String districtName = dictionaryFeignClient.getName(hospital.getDistrictCode());
+
+        hospital.getParam().put("hospitalTypeName", hospitalTypeName);
+        hospital.getParam().put("full-address", provinceName + cityName + districtName);
+
+        return hospital;
     }
 }
