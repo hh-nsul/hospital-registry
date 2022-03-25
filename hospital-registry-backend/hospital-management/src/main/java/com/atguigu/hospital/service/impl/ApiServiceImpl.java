@@ -71,10 +71,10 @@ public class ApiServiceImpl implements ApiService {
         paramMap.put("timestamp", HttpRequestHelper.getTimestamp());
         paramMap.put("sign", MD5.encrypt(this.getSignKey()));
 //        paramMap.put("sign", HttpRequestHelper.getSign(paramMap, this.getSignKey()));
-        JSONObject respone = HttpRequestHelper.sendRequest(paramMap,this.getApiUrl()+"/api/hospital/show");
-        System.out.println(respone.toJSONString());
-        if(null != respone && 200 == respone.getIntValue("code")) {
-            JSONObject jsonObject = respone.getJSONObject("data");
+        JSONObject response = HttpRequestHelper.sendRequest(paramMap,this.getApiUrl()+"/api/hospital/list");
+        System.out.println(response.toJSONString());
+        if(null != response && 200 == response.getIntValue("code")) {
+            JSONObject jsonObject = response.getJSONObject("data");
             return jsonObject;
         }
         return null;
@@ -191,7 +191,7 @@ public class ApiServiceImpl implements ApiService {
         Map<String, Object> result = new HashMap();
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("hoscode",this.getHoscode());
-        //paramMap.put("depcode",depcode);
+//        paramMap.put("depcode",depcode);
         paramMap.put("page",pageNum);
         paramMap.put("limit",pageSize);
         paramMap.put("timestamp", HttpRequestHelper.getTimestamp());
@@ -263,7 +263,7 @@ public class ApiServiceImpl implements ApiService {
             paramMap.put("timestamp", HttpRequestHelper.getTimestamp());
             paramMap.put("sign",MD5.encrypt(this.getSignKey()));
 
-            JSONObject respone = HttpRequestHelper.sendRequest(paramMap,this.getApiUrl()+"/api/hospital/saveSchedule");
+            JSONObject respone = HttpRequestHelper.sendRequest(paramMap,this.getApiUrl()+"/api/hospital/schedule/save");
             System.out.println(respone.toJSONString());
             if(null == respone || 200 != respone.getIntValue("code")) {
                 throw new YyghException(respone.getString("message"), 201);

@@ -24,17 +24,21 @@ public class DepartmentServiceImpl implements DepartmentService {
     public void save(Map<String, Object> paramMap) {
         String paramMapStr = JSONObject.toJSONString(paramMap);
         Department department = JSONObject.parseObject(paramMapStr, Department.class);
-        Optional<Department> optionalDepartment = Optional.ofNullable(departmentRepository.getDepartmentByHoscodeAndDepcode(
-                                                                         department.getHoscode(), department.getDepcode()));
+        Optional<Department> optionalDepartment = Optional.ofNullable(
+                                    departmentRepository.getDepartmentByHoscodeAndDepcode(
+                                            department.getHoscode(), department.getDepcode()));
 
         if (optionalDepartment.isPresent()) {
-            department.setUpdateTime(LocalDateTime.now());
+            Department departmentPresent = optionalDepartment.get();
+            departmentPresent.setUpdateTime(LocalDateTime.now());
+            departmentPresent.setIsDeleted(0);
+            departmentRepository.save(departmentPresent);
         } else {
             department.setCreateTime(LocalDateTime.now());
             department.setUpdateTime(department.getCreateTime());
+            department.setIsDeleted(0);
+            departmentRepository.save(department);
         }
-        department.setIsDeleted(0);
-        departmentRepository.save(department);
     }
 
     @Override

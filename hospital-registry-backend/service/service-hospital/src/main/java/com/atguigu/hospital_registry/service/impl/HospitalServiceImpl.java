@@ -24,17 +24,17 @@ public class HospitalServiceImpl implements HospitalService {
 
         Optional<Hospital> optionalHospital = Optional.ofNullable(hospitalRepository.getHospitalByHoscode(hospital.getHoscode()));
         if (optionalHospital.isPresent()) {
-            hospital.setStatus(optionalHospital.get().getStatus());
-            hospital.setCreateTime(optionalHospital.get().getCreateTime());
-            hospital.setUpdateTime(LocalDateTime.now());
+            Hospital hospitalPresent = optionalHospital.get();
+            hospitalPresent.setUpdateTime(LocalDateTime.now());
+            hospitalPresent.setIsDeleted(0);
+            hospitalRepository.save(hospitalPresent);
         } else {
             hospital.setStatus(0);
             hospital.setCreateTime(LocalDateTime.now());
             hospital.setUpdateTime(hospital.getCreateTime());
+            hospital.setIsDeleted(0);
+            hospitalRepository.save(hospital);
         }
-
-        hospital.setIsDeleted(0);
-        hospitalRepository.save(hospital);
     }
 
     @Override
