@@ -85,7 +85,7 @@ public class ApiController {
             throw new HospitalRegistryException(ResultCodeEnum.SIGN_ERROR);
         }
 
-        Hospital hospital = hospitalService.getByHoscode(hoscode);
+        Hospital hospital = hospitalService.getHospitalByHoscode(hoscode);
         return Result.ok(hospital);
     }
 

@@ -9,11 +9,13 @@ import java.util.List;
 
 public interface DictionaryService extends IService<Dictionary> {
 
-    List<Dictionary> findChildData(Long parentId);
+    List<Dictionary> getChildData(Long parentId);
 
     void exportDictData(HttpServletResponse response);
 
     void importDictData(MultipartFile multipartFile);
 
     String getDictionaryName(String dictCode, String value);
+
+    List<Dictionary> getSubNodesByDictCode(String dictCode);
 }

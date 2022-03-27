@@ -11,7 +11,11 @@ public interface HospitalService {
     // Upload hospital info
     void save(Map<String, Object> paramMap);
 
-    Hospital getByHoscode(String hoscode);
+    Hospital getHospitalByHoscode(String hoscode);
 
     Page<Hospital> selectHospitalByPage(Integer page, Integer limit, HospitalQueryVo hospitalQueryVo);
+
+    void updateHospitalStatus(String id, Integer status);
+
+    Map<String, Object> getHospitalById(String id);
 }

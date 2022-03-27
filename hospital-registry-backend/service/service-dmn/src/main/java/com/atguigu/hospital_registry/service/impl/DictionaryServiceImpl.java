@@ -25,7 +25,7 @@ public class DictionaryServiceImpl extends ServiceImpl<DictMapper, Dictionary> i
 
     @Override
     @Cacheable(value = "dict", keyGenerator = "keyGenerator")
-    public List<Dictionary> findChildData(Long parentId) {
+    public List<Dictionary> getChildData(Long parentId) {
 
         QueryWrapper<Dictionary> dictQueryWrapper = new QueryWrapper<>();
         dictQueryWrapper.eq("parent_id", parentId);
@@ -36,6 +36,13 @@ public class DictionaryServiceImpl extends ServiceImpl<DictMapper, Dictionary> i
             dictionary.setHasChildren(hasChildren);
         }
         return dictionaryList;
+    }
+
+    @Override
+    public List<Dictionary> getSubNodesByDictCode(String dictCode) {
+        Dictionary dictionary = this.getDictionaryByDictCode(dictCode);
+        List<Dictionary> subNodes = this.getChildData(dictionary.getId());
+        return subNodes;
     }
 
     @Override

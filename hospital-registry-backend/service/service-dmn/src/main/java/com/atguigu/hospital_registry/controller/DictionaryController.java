@@ -24,7 +24,14 @@ public class DictionaryController {
     @ApiOperation(value = "Query sub-list according to ID")
     @GetMapping("child-data/{parent-id}")
     public Result getChildData(@PathVariable("parent-id") Long parentId) {
-        List<Dictionary> list = dictionaryService.findChildData(parentId);
+        List<Dictionary> list = dictionaryService.getChildData(parentId);
+        return Result.ok(list);
+    }
+
+    @ApiOperation(value = "Get sub nodes according to dict_code")
+    @GetMapping("/sub-nodes/{dictCode}")
+    public Result getSubNodesByDictCode(@PathVariable String dictCode) {
+        List<Dictionary> list = dictionaryService.getSubNodesByDictCode(dictCode);
         return Result.ok(list);
     }
 

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -46,7 +47,7 @@ public class HospitalServiceImpl implements HospitalService {
     }
 
     @Override
-    public Hospital getByHoscode(String hoscode) {
+    public Hospital getHospitalByHoscode(String hoscode) {
         return hospitalRepository.getHospitalByHoscode(hoscode);
     }
 
@@ -71,6 +72,32 @@ public class HospitalServiceImpl implements HospitalService {
         return pages;
     }
 
+    @Override
+    public void updateHospitalStatus(String id, Integer status) {
+        Optional<Hospital> optionalHospital = hospitalRepository.findById(id);
+        optionalHospital.ifPresent(hospital -> {
+            hospital.setStatus(status);
+            hospital.setUpdateTime(LocalDateTime.now());
+            hospitalRepository.save(hospital);
+        });
+
+        return;
+    }
+
+    @Override
+    public Map<String, Object> getHospitalById(String id) {
+        HashMap<String, Object> map = new HashMap<>();
+        Optional<Hospital> optionalHospital = hospitalRepository.findById(id);
+        optionalHospital.ifPresent(hospital -> {
+            this.setHospitalType(hospital);
+            map.put("hospital", hospital);
+            map.put("bookingRule", hospital.getBookingRule());
+            hospital.setBookingRule(null);
+        });
+        return map;
+    }
+
+
     private Hospital setHospitalType(Hospital hospital) {
         String hospitalTypeName = dictionaryFeignClient.getName("Hostype", hospital.getHostype());
         String provinceName = dictionaryFeignClient.getName(hospital.getProvinceCode());
@@ -78,7 +105,7 @@ public class HospitalServiceImpl implements HospitalService {
         String districtName = dictionaryFeignClient.getName(hospital.getDistrictCode());
 
         hospital.getParam().put("hospitalTypeName", hospitalTypeName);
-        hospital.getParam().put("full-address", provinceName + cityName + districtName);
+        hospital.getParam().put("fullAddress", provinceName + cityName + districtName);
 
         return hospital;
     }
