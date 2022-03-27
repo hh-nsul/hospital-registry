@@ -37,9 +37,9 @@ export const constantRouterMap = [
   },
 
   {
-    path: '/hospitalConfig',
+    path: '/hospital-config',
     component: Layout,
-    redirect: '/hospitalConfig/list',
+    redirect: '/hospital-config/list',
     name: 'Hospital Config',
     meta: { title: 'Hospital Config', icon: 'example' }, // Use default icon
     children: [
@@ -61,7 +61,20 @@ export const constantRouterMap = [
         component: () => import('@/views/hospital-config/add'),
         meta: { title: 'Edit', nocache: 'true' },
         hidden: true
-      }
+      },
+      {
+        path: '/hospital/list',
+        name: 'Hospital List',
+        component: () => import('@/views/hospital/list'),
+        meta: { title: 'Hospital List', icon: 'table'}
+      },
+      {
+          path: 'hospital/detail/:id',
+          name: 'Detail',
+          component: () => import('@/views/hospital/detail'),
+          meta: { title: 'Detail', noCache: true },
+          hidden: true
+        }
     ]
   },
 
