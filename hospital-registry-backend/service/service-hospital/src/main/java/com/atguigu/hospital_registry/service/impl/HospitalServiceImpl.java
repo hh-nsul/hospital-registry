@@ -97,6 +97,13 @@ public class HospitalServiceImpl implements HospitalService {
         return map;
     }
 
+    @Override
+    public String getHospitalNameByHoscode(String hoscode) {
+        return Optional.ofNullable(hospitalRepository.getHospitalByHoscode(hoscode))
+                       .map(hospital -> hospital.getHosname())
+                       .orElseGet(null);
+    }
+
 
     private Hospital setHospitalType(Hospital hospital) {
         String hospitalTypeName = dictionaryFeignClient.getName("Hostype", hospital.getHostype());
