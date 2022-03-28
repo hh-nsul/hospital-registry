@@ -38,5 +38,12 @@ export default {
             url: `/admin/hospital/detail/${id}`,
             method: `get`
         })
+    },
+
+    getDepartmentByHoscode(hoscode) {
+        return request ({
+            url: `/admin/hospital/department/list/${hoscode}`,
+            method: `get`
+        })
     }
 }

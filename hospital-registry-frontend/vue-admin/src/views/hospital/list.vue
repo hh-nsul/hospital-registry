@@ -69,8 +69,12 @@
         <el-table-column label="Operation" width="230" align="center">
             <template slot-scope="scope">
 
-                <router-link :to = "'/hospitalConfig/hospital/detail/' + scope.row.id">
+                <router-link :to = "'/hospital-config/hospital/detail/' + scope.row.id">
                     <el-button type="primary" size="mini">Detail</el-button>
+                </router-link>
+
+                <router-link :to = "'/hospital-config/hospital/schedule/' + scope.row.hoscode">
+                    <el-button type="primary" size="mini">Sched.</el-button>
                 </router-link>
 
                 <el-button v-if="scope.row.status == 1"  type="primary" size="mini" @click="updateStatus(scope.row.id, 0)">Offline</el-button>

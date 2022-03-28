@@ -74,7 +74,14 @@ export const constantRouterMap = [
           component: () => import('@/views/hospital/detail'),
           meta: { title: 'Detail', noCache: true },
           hidden: true
-        }
+      },
+      {
+        path: 'hospital/schedule/:hoscode',
+        name: 'Schedule',
+        component: () => import('@/views/hospital/schedule'),
+        meta: { title: 'Schedule', noCache: true },
+        hidden: true
+      }
     ]
   },
 
