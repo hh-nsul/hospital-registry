@@ -119,20 +119,16 @@ export default {
     
     methods: {
         fetchData(page = 1) {
-             console.log("fetchData: ")
             this.page = page
             hospitalApi.getHospitalList(this.page, this.limit, this.searchObj)
                        .then(response => {
                             this.list = response.data.content
                             this.total = response.data.totalElements
-                            console.log("list: " + response.data.content)
-                            console.log("total: " + response.data.totalElements)
                             this.listLoading = false
                         })
         },
 
         getAllProvince() {
-            console.log("getAllProvince: ")
             hospitalApi.getSubNodesByDictCode('Province')
                        .then(response => {
                            this.provinceList = response.data

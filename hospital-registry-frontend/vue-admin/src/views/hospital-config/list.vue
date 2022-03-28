@@ -38,7 +38,7 @@
         <el-table-column label="Operation" width="280" align="center">
             <template slot-scope="scope">
 
-                <router-link :to="'/hospitalConfig/edit/' + scope.row.id">
+                <router-link :to="'/hospital-config/edit/' + scope.row.id">
                     <el-button type="primary" size="mini" icon="el-icon-edit"></el-button>
                 </router-link>
 
@@ -151,8 +151,6 @@ export default {
                 for (var i = 0; i < this.multiSelection.length; ++i) {
                     idList.push(this.multiSelection[i].id)
                 }
-
-                console.log("idList: " + idList)
 
                 hospitalConfigApi.deleteHospitalConfigBatch(idList)
                     .then(response => {

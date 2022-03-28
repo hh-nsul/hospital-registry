@@ -38,7 +38,6 @@ export default {
     },
 
     created() {
-
         if (this.$route.params && this.$route.params.id) {
             const id = this.$route.params.id
             this.getHosConfig(id)
@@ -66,7 +65,7 @@ export default {
                 })
 
                 // Refresh page
-                this.$router.push({ path: '/hospitalConfig/list'})
+                this.$router.push({ path: '/hospital-config/list'})
         },
 
         save() {
@@ -79,11 +78,10 @@ export default {
                 })
 
                 // Refresh page
-                this.$router.push({ path: '/hospitalConfig/list'})
+                this.$router.push({ path: '/hospital-config/list'})
         },
 
         saveOrUpdate() {
-
             if (this.hospitalConfig.id) {
                 this.update()
             } else {

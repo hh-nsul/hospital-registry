@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 @RestController
-@RequestMapping("/admin/hospital-config")
+@RequestMapping("/admin/hospital")
 @CrossOrigin
 public class HospitalConfigController {
 
