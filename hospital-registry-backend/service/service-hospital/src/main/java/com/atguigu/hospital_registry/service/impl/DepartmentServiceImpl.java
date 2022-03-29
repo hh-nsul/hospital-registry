@@ -111,4 +111,10 @@ public class DepartmentServiceImpl implements DepartmentService {
 
         return treeList;
     }
+
+    @Override
+    public String getDepartmentName(String hoscode, String depcode) {
+        Optional<Department> optionalDepartment = Optional.ofNullable(departmentRepository.getDepartmentByHoscodeAndDepcode(hoscode, depcode));
+        return optionalDepartment.map(department -> department.getDepname()).orElse(" ");
+    }
 }

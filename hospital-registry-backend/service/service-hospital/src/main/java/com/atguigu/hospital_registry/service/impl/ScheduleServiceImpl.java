@@ -3,10 +3,12 @@ package com.atguigu.hospital_registry.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.atguigu.hospital_registry.model.hosp.Schedule;
 import com.atguigu.hospital_registry.repostitory.ScheduleRepository;
+import com.atguigu.hospital_registry.service.DepartmentService;
 import com.atguigu.hospital_registry.service.HospitalService;
 import com.atguigu.hospital_registry.service.ScheduleService;
 import com.atguigu.hospital_registry.vo.hosp.BookingScheduleRuleVo;
 import com.atguigu.hospital_registry.vo.hosp.ScheduleQueryVo;
+import io.swagger.annotations.ApiOperation;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
 import org.springframework.beans.BeanUtils;
@@ -16,6 +18,7 @@ import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
@@ -32,6 +35,9 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Resource
     private HospitalService hospitalService;
+
+    @Resource
+    private DepartmentService departmentService;
 
     @Override
     public void save(Map<String, Object> paramMap) {
@@ -112,7 +118,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         );
 
         AggregationResults<BookingScheduleRuleVo> totalAggResult =
-                mongoTemplate.aggregate(agg, Schedule.class, BookingScheduleRuleVo.class);
+                mongoTemplate.aggregate(totalAgg, Schedule.class, BookingScheduleRuleVo.class);
 
         int total = totalAggResult.getMappedResults().size();
 
@@ -133,6 +139,23 @@ public class ScheduleServiceImpl implements ScheduleService {
 
         return mappedResults;
     }
+
+    @Override
+    public List<Schedule> getScheduleDetail(String hoscode, String depcode, String workDate) {
+        List<Schedule> scheduleDetailList = scheduleRepository.getScheduleByHoscodeAndDepcodeAndWorkDate(hoscode, depcode, new DateTime(workDate).toDate());
+        scheduleDetailList.stream().forEach(item -> {
+            this.encapsulateSchedule(item);
+        });
+        return scheduleDetailList;
+    }
+
+    private void encapsulateSchedule(Schedule schedule) {
+        Map<String, Object> param = schedule.getParam();
+        param.put("hosname", hospitalService.getHospitalByHoscode(schedule.getHoscode()));
+        param.put("depname", departmentService.getDepartmentName(schedule.getHoscode(), schedule.getDepcode()));
+        param.put("dayOfWeek", this.getDayOfWeek(new DateTime(schedule.getWorkDate())));
+    }
+
 
     private String getDayOfWeek(DateTime dateTime) {
         String dayOfWeek = "";

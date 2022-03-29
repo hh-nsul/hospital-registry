@@ -101,7 +101,7 @@ public class HospitalServiceImpl implements HospitalService {
     public String getHospitalNameByHoscode(String hoscode) {
         return Optional.ofNullable(hospitalRepository.getHospitalByHoscode(hoscode))
                        .map(hospital -> hospital.getHosname())
-                       .orElseGet(null);
+                       .orElse(" ");
     }
 
 
