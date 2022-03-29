@@ -45,5 +45,19 @@ export default {
             url: `/admin/hospital/department/list/${hoscode}`,
             method: `get`
         })
+    },
+
+    getScheduleRule(page, limit, hoscode, depcode) {
+        return request ({
+            url: `/admin/hospital/schedule/rule/${page}/${limit}/${hoscode}/${depcode}`,
+            method: `get`
+        })
+    },
+
+    getScheduleDetail(hoscode, depcode, workDate) {
+        return request ({
+            url: `/admin/hospital/schedule/detail/${hoscode}/${depcode}/${workDate}`,
+            method: `get`
+        })
     }
 }
