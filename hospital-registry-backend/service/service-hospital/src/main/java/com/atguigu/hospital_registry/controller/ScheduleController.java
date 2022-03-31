@@ -12,7 +12,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/admin/hospital/schedule")
-@CrossOrigin
+//@CrossOrigin
 public class ScheduleController {
 
     @Resource

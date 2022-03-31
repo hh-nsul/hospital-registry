@@ -12,10 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class HospitalServiceImpl implements HospitalService {
@@ -102,6 +99,17 @@ public class HospitalServiceImpl implements HospitalService {
         return Optional.ofNullable(hospitalRepository.getHospitalByHoscode(hoscode))
                        .map(hospital -> hospital.getHosname())
                        .orElse(" ");
+    }
+
+    @Override
+    public List<Hospital> getHospitalByName(String hosname) {
+        Optional<List<Hospital>> optionalHospitalList = Optional.ofNullable(
+                hospitalRepository.findHospitalByHosnameLike(hosname));
+        if (optionalHospitalList.isPresent()) {
+            return optionalHospitalList.get();
+        } else {
+            return new ArrayList<>();
+        }
     }
 
 

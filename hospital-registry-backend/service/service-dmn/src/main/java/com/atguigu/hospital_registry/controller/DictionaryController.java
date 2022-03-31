@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Api(value = "Data Dictionary Interface")
-@CrossOrigin
+//@CrossOrigin
 @RestController
 @RequestMapping("/admin/dmn/dictionary")
 public class DictionaryController {
@@ -22,8 +22,8 @@ public class DictionaryController {
     private DictionaryService dictionaryService;
 
     @ApiOperation(value = "Query sub-list according to ID")
-    @GetMapping("child-data/{parent-id}")
-    public Result getChildData(@PathVariable("parent-id") Long parentId) {
+    @GetMapping("/child-data/{parentId}")
+    public Result getChildData(@PathVariable Long parentId) {
         List<Dictionary> list = dictionaryService.getChildData(parentId);
         return Result.ok(list);
     }

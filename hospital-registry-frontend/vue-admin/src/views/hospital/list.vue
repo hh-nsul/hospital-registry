@@ -61,7 +61,7 @@
         <el-table-column prop="param.fullAddress" label="Address"/>
         <el-table-column label="Status" width="80">
             <template slot-scope="scope">
-                    {{ scope.row.status === 0 ? 'online' : 'offline' }}
+                    {{ scope.row.status === 0 ? 'offline' : 'online' }}
             </template>
         </el-table-column>
         <el-table-column prop="createTime" label="Creation Time"/>
@@ -77,7 +77,7 @@
                     <el-button type="primary" size="mini">Sched.</el-button>
                 </router-link>
 
-                <el-button v-if="scope.row.status == 1"  type="primary" size="mini" @click="updateStatus(scope.row.id, 0)">Offline</el-button>
+                <el-button v-if="scope.row.status == 1"  type="danger" size="mini" @click="updateStatus(scope.row.id, 0)">Offline</el-button>
                 <el-button v-if="scope.row.status == 0"  type="danger" size="mini" @click="updateStatus(scope.row.id, 1)">Online</el-button>
             </template>
         </el-table-column>

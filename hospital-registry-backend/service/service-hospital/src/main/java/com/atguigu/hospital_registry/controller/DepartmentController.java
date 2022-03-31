@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/admin/hospital/department")
-@CrossOrigin
+//@CrossOrigin
 public class DepartmentController {
 
     @Resource

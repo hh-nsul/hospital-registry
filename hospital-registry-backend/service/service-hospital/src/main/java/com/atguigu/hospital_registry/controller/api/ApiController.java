@@ -62,7 +62,8 @@ public class ApiController {
          * all the '+' was converted into ' ' during transmission,
          * here is to convert ' ' back
          */
-        String logoData = paramMap.get("logoData").toString().replaceAll(" ", "+");
+        String logoData = (String) paramMap.get("logoData");
+        logoData = logoData.replaceAll("\\s", "+");
         paramMap.put("logoData", logoData);
 
         hospitalService.save(paramMap);

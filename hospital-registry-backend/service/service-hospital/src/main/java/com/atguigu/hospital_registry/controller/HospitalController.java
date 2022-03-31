@@ -13,7 +13,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/admin/hospital")
-@CrossOrigin
+//@CrossOrigin
 public class HospitalController {
 
     @Resource

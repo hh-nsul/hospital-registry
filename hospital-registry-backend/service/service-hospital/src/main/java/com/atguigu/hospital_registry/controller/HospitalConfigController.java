@@ -16,7 +16,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 @RestController
 @RequestMapping("/admin/hospital")
-@CrossOrigin
+//@CrossOrigin
 public class HospitalConfigController {
 
     private static final ThreadLocalRandom RANDOM = ThreadLocalRandom.current();
