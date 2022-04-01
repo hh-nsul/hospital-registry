@@ -31,24 +31,30 @@
       <div class="filter-wrapper">
         <span class="label">Level: </span>
         <div class="condition-wrapper">
-          <span v-for="(item, index) in hostypeList" :key="index" class="item v-link clickable">{{item.name}}</span>
+          <!-- item.value is the variable "value" defined in com.atguigu.hospital_registry.model.dmn.Dictionary.java -->
+          <span class="item v-link clickable"
+          :class="hostypeActiveIndex == index ? 'selected' : ''"
+          v-for="(item, index) in hostypeList" :key="item.id" 
+          @click="hostypeSelect(item.value, index)" >{{item.name}}</span>
       </div>
       </div>
     <div class="filter-wrapper">
       <span
       class="label">District: </span>
         <div class="condition-wrapper">
-          <span v-for="(item, index) in districtList" :key="index" class="item v-link clickable">{{item.name}} </span>
+          <span class="item v-link clickable"
+          :class="provinceActiveIndex == index ? 'selected' : ''"
+          v-for="(item, index) in districtList" :key="index" 
+          @click="districtSelect(item.value, index)">{{item.name}} </span>
         </div>
       </div>
     </div>
     </div>
     <div class="v-scroll-list hospital-list">
 
-      <div v-for="(item, index) in list" :key="index" class="v-card clickable list-item">
+      <div v-for="(item, index) in list" :key="index" class="v-card clickable list-item space" @click="show(item.hoscode)">
         <div class="">
-          <div
-          class="hospital-list-item hos-item" index="0">
+          <div class="hospital-list-item hos-item" index="0">
           <div class="wrapper">
             <div class="hospital-title"> {{ item.hosname }} </div>
               <div class="bottom-container">
@@ -205,6 +211,59 @@ export default {
                      }
                    })
 
+    },
+
+    getHospitalList() {
+      hospitalUserApi.getHospitalList(this.page, this.limit, this.searchObj)
+                     .then(response => {
+                       for (let i in response.data.content) {
+                         this.list.push(response.data.content[i])
+                       }
+
+                       this.page = response.data.totalPages
+                     })
+    },
+
+    hostypeSelect(hostype, index) {
+      this.list = []
+      this.page = 1
+      this.hostypeActiveIndex = index
+      this.searchObj.hostype = hostype
+
+      this.getHospitalList()
+    },
+
+    districtSelect(districtCode, index) {
+      this.list = []
+      this.page = 1
+      this.provinceActiveIndex = index
+      this.searchObj.districtCode = districtCode
+
+      this.getHospitalList()
+    },
+
+    querySearchAsync(queryString, cb) {
+      this.searchObj = []
+      if(queryString == '') return
+      hospitalUserApi.getHospitalByName(queryString).then(response => {
+        for (let i = 0, len = response.data.length; i <len; i++) {
+          response.data[i].value = response.data[i].hosname
+        }
+        cb(response.data)
+      })
+    },
+
+    //在下拉框选择某一个内容，执行下面方法，跳转到详情页面中
+    handleSelect(item) {
+      // By default, it's going to access "index.vue" under "/pages/hospital" directory
+      window.location.href = '/hospital/' + item.hoscode
+      consloe.log("handleSelect window.location.href: " + window.location.href)
+    },
+
+    //点击某个医院名称，跳转到详情页面中
+    show(hoscode) {
+      window.location.href = '/hospital/' + hoscode
+      consloe.log("show window.location.href: " + window.location.href)
     }
   }
 

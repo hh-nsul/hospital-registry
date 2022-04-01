@@ -112,6 +112,18 @@ public class HospitalServiceImpl implements HospitalService {
         }
     }
 
+    @Override
+    public Map<String, Object> getHospitalDetailByHoscode(String hoscode) {
+        Map<String, Object> map = new HashMap<>();
+
+        Hospital hospital = this.setHospitalType(this.getHospitalByHoscode(hoscode));
+        map.put("hospital", hospital);
+        map.put("bookingRule", hospital.getBookingRule());
+
+        hospital.setBookingRule(null);
+        return map;
+    }
+
 
     private Hospital setHospitalType(Hospital hospital) {
         String hospitalTypeName = dictionaryFeignClient.getName("Hostype", hospital.getHostype());
