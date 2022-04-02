@@ -77,8 +77,8 @@
     <div class="right">
       <div class="common-dept">
       <div class="header-wrapper">
-      <div class="title"> 常见科室</div>
-      <div class="all-wrapper"><span>全部</span>
+      <div class="title">Department</div>
+      <div class="all-wrapper"><span>All</span>
       <span class="iconfont icon"></span>
       </div>
       </div>
@@ -99,10 +99,10 @@
       <div class="icon-wrapper"><span
       class="iconfont title-icon"></span>
       </div>
-      <span class="title">平台公告</span>
+      <span class="title">News</span>
       </div>
       <div class="all-wrapper">
-      <span>全部</span>
+      <span>All</span>
       <span class="iconfont icon"></span>
       </div>
       </div>

@@ -34,7 +34,7 @@ class="v-link clickable dark">Query/Cancel</span>
 <div class="info-wrapper">
 <img class="hospital-img" :src="'data:image/jpeg;base64,'+hospital.logoData" :alt="hospital.hosname">
 <div class="content-wrapper">
-<div> 挂号规则</div>
+<div> Registry Info </div>
 <div class="line">
 <div><span class="label">预约周期: </span><span>{{ bookingRule.cycle }}天</span></div>
 <div class="space"><span class="label">放号时间: </span><span>{{ bookingRule.releaseTime }}</span></div>
@@ -44,7 +44,7 @@ class="v-link clickable dark">Query/Cancel</span>
 <span v-if="bookingRule.quitDay == -1">就诊前一工作日{{ bookingRule.quitTime }}前取消</span>
 <span v-if="bookingRule.quitDay == 0">就诊前当天{{ bookingRule.quitTime }}前取消</span>
 </div>
-<div style="margin-top:20px"> 医院预约规则</div>
+<div style="margin-top:20px">How to Register</div>
 <div class="rule-wrapper">
 <ol>
 <li v-for="item in bookingRule.rule" :key="item">{{ item }}</li>
@@ -52,7 +52,7 @@ class="v-link clickable dark">Query/Cancel</span>
 </div>
 </div>
 </div>
-<div class="title select-title"> 选择科室</div>
+<div class="title select-title">Department</div>
 <div class="select-dept-wrapper">
 <div class="department-wrapper">
 <div class="hospital-department">
