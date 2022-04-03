@@ -4,6 +4,8 @@
 
 - A platform where many hospitals are settled and hospital visitors can register online.
 
+- A front-end and back-end separation project, built with a microservice architecture style.
+
 - Hospitals can be managed by administrators through administrative interface.
 
 - Hospital visitors register on client side.
@@ -11,16 +13,16 @@
 ## Tech Stacks
 
 ### Backend
+
 - **Springboot** + **Spring Cloud** + **Spring Cloud Alibaba**
 - **Redis** + **MongoDB** + **MyBatis-plus** + **MySQL** 
 - **Maven** + **Swagger** + **Lombok**
 
 ### Frontend
+
 - **Vue.js** + **Axios** + **NPM** + **Babel** + **Webpack**
 
 ## Architecture
-
-- A front-end and back-end separation project, built with a microservice architecture style. 
 
 ![img](./img/architecture.jpg)
 
