@@ -20,7 +20,7 @@
 
 ### Frontend
 
-- **Vue.js** + **Axios** + **NPM** + **Babel** + **Webpack**
+- **Vue.js** + **element-ui** + **Axios** + **NPM** + **Babel** + **Webpack**
 
 ## Architecture
 
